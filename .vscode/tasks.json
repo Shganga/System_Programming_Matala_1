@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build and run cpp",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-o", "a.out", // Output file name (you can change this if you want)
+                "${file}",     // The current file you are working on
+                "&&",          // Run the next command if the first one succeeds
+                "./a.out"      // Execute the compiled output
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compiles and runs the C++ program"
+        }
+    ]
+}
