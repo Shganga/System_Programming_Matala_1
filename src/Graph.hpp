@@ -1,0 +1,28 @@
+#ifndef GRAPH_HPP
+#define GRAPH_HPP
+
+#include "Edge.hpp"
+#include <iostream>
+#include <stdexcept>
+
+namespace graph {
+    class Graph {
+    public:
+        Graph(int vertices);
+        ~Graph();
+
+        void add_edge(int from, int to, int weight);
+        void remove_edge(int from, int to);
+
+        void print_graph() const;  // This remains for debugging, though not used in tests
+        bool has_edge(int from, int to) const; // Helper function to check existence of an edge
+
+    private:
+        void remove_edge_helper(int from, int to);
+
+        int num_vertices;
+        Edge** adjacency_list;
+    };
+}
+
+#endif

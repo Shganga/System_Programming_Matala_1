@@ -1,34 +1,46 @@
-# Compiler
+# Compiler and flags
 CXX = g++
-CXXFLAGS = -g -Wall -std=c++17
+CXXFLAGS = -g -Wall -std=c++17 -I./src  # Include the src directory
 
-# Source files
-SRC = Node.cpp Edge.cpp Graph.cpp main.cpp
-OBJ = Node.o Edge.o Graph.o main.o
-TARGET = main  # The executable file is 'main'
+# Directories
+SRC_DIR = src
+TEST_DIR = tests
 
-# Default target (compiles everything)
-all: main
+# Source files (from the src folder), exclude main.cpp for tests
+SRC = $(SRC_DIR)/Graph.cpp $(SRC_DIR)/Edge.cpp $(SRC_DIR)/Node.cpp
+OBJ = $(SRC:.cpp=.o)  # Object files for source code
 
-# Make Main (compiles everything but doesn't run it)
-Main: main
+# Test files (from the tests folder)
+TEST_SRC = $(TEST_DIR)/Test_graph.cpp $(TEST_DIR)/Test_edge.cpp
+TEST_OBJ = $(TEST_SRC:.cpp=.o)  # Object files for tests
 
-# Build the executable
-main: $(OBJ)
-	$(CXX) $(CXXFLAGS) -o main $(OBJ)
+# Executable names
+TARGET = main
+TEST_TARGET = test  # For running tests
 
-# Compile source files into object files
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Default target (build the main program)
+all: $(TARGET)
+
+# Build the main executable (includes main.cpp)
+Main: $(OBJ) $(SRC_DIR)/main.cpp
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJ) $(SRC_DIR)/main.cpp
 
 # Run the main executable
-run: main
-	./main
+run: Main
+	./$(TARGET)
 
-# Run Valgrind memory check
-valgrind: main
-	valgrind --leak-check=full --show-leak-kinds=all ./main
+# Test target (compile only the necessary object files and build the test executable)
+test: $(OBJ) $(TEST_OBJ)
+	$(CXX) $(CXXFLAGS) -o $(TEST_TARGET) $(OBJ) $(TEST_OBJ)
+
+# Run the test executable
+run_test: test
+	./$(TEST_TARGET)
+
+# Run Valgrind memory check on the main executable
+valgrind: Main
+	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
 
 # Clean build files
 clean:
-	rm -f $(OBJ) main
+	rm -f $(OBJ) $(TEST_OBJ) $(TARGET) $(TEST_TARGET)
