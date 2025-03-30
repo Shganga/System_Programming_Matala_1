@@ -4,18 +4,21 @@
 #include <stdexcept>
 
 namespace graph {
+
+    // Constructor to initialize graph with a number of vertices
     Graph::Graph(int vertices) : num_vertices(vertices) {
-        adjacency_list = new Node*[num_vertices];
+        adjacency_list = new Edge*[num_vertices];
         for (int i = 0; i < num_vertices; ++i) {
-            adjacency_list[i] = nullptr;
+            adjacency_list[i] = nullptr;  // Initialize each adjacency list as nullptr (empty)
         }
     }
 
+    // Destructor to free memory for adjacency lists and edges
     Graph::~Graph() {
         for (int i = 0; i < num_vertices; ++i) {
-            Node* current = adjacency_list[i];
+            Edge* current = adjacency_list[i];
             while (current != nullptr) {
-                Node* temp = current;
+                Edge* temp = current;
                 current = current->get_next();
                 delete temp;
             }
@@ -23,60 +26,66 @@ namespace graph {
         delete[] adjacency_list;
     }
 
+    // Add an edge between 'from' and 'to' with a given weight
     void Graph::add_edge(int from, int to, int weight) {
         if (from < 0 || from >= num_vertices || to < 0 || to >= num_vertices) {
             throw std::invalid_argument("Invalid vertex index");
         }
 
         // Add the edge from 'from' to 'to'
-        Node* new_node = new Node(to);  // Only storing destination
-        new_node->set_next(adjacency_list[from]);
-        adjacency_list[from] = new_node;
+        Edge* new_edge = new Edge(to, weight);  // Create a new edge
+        new_edge->set_next(adjacency_list[from]);
+        adjacency_list[from] = new_edge;  // Add to the adjacency list of 'from'
 
         // Add the edge from 'to' to 'from' (since the graph is undirected)
-        new_node = new Node(from);  // Only storing destination
-        new_node->set_next(adjacency_list[to]);
-        adjacency_list[to] = new_node;
+        new_edge = new Edge(from, weight);  // Create a new edge
+        new_edge->set_next(adjacency_list[to]);
+        adjacency_list[to] = new_edge;  // Add to the adjacency list of 'to'
     }
 
+    // Remove an edge between 'from' and 'to'
     void Graph::remove_edge(int from, int to) {
         if (from < 0 || from >= num_vertices || to < 0 || to >= num_vertices) {
             throw std::invalid_argument("Invalid vertex index");
         }
 
-        remove_edge_helper(from, to);
-        remove_edge_helper(to, from);
+        remove_edge_helper(from, to);  // Remove edge from 'from' to 'to'
+        remove_edge_helper(to, from);  // Remove edge from 'to' to 'from' (undirected graph)
     }
 
     // Helper function to remove an edge from the adjacency list
     void Graph::remove_edge_helper(int from, int to) {
-        Node* current = adjacency_list[from];
-        Node* prev = nullptr;
+        Edge* current = adjacency_list[from];
+        Edge* prev = nullptr;
 
-        while (current != nullptr && current->get_value() != to) {
+        // Traverse the adjacency list to find the edge to remove
+        while (current != nullptr && current->getDestination() != to) {
             prev = current;
             current = current->get_next();
         }
 
+        // If the edge is not found, throw an exception
         if (current == nullptr) {
             throw std::runtime_error("Edge not found");
         }
 
+        // Remove the edge
         if (prev == nullptr) {
-            adjacency_list[from] = current->get_next();
+            adjacency_list[from] = current->get_next();  // Remove first edge
         } else {
-            prev->set_next(current->get_next());
+            prev->set_next(current->get_next());  // Remove edge from the middle or end
         }
 
-        delete current;
+        delete current;  // Free memory for the removed edge
     }
 
+    // Print the adjacency list of the graph
     void Graph::print_graph() const {
         for (int i = 0; i < num_vertices; ++i) {
             std::cout << "Vertex " << i << ": ";
-            Node* current = adjacency_list[i];
+            Edge* current = adjacency_list[i];
             while (current != nullptr) {
-                std::cout << current->get_value() << " ";
+                std::cout << "(" << current->getDestination() << ", " << current->getWeight() << ") ";
                 current = current->get_next();
             }
             std::cout << std::endl;
