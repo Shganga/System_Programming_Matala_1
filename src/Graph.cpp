@@ -79,6 +79,18 @@ namespace graph {
         delete current;  // Free memory for the removed edge
     }
 
+    // Helper function to check if there is an edge between 'from' and 'to'
+    bool Graph::has_edge(int from, int to) const {
+        Edge* current = adjacency_list[from];
+        while (current != nullptr) {
+            if (current->getDestination() == to) {
+                return true;
+            }
+            current = current->get_next();
+        }
+        return false;
+    }
+
     // Print the adjacency list of the graph
     void Graph::print_graph() const {
         for (int i = 0; i < num_vertices; ++i) {
