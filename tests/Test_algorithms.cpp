@@ -36,8 +36,7 @@ TEST_CASE("Breadth-First Search (BFS)") {
     g.add_edge(2, 4, 40);
     g.add_edge(3, 5, 50);
 
-    Algorithms alg;
-    graph::Graph bfs_tree = alg.bfs(g, 0);
+    graph::Graph bfs_tree = Algorithms::bfs(g, 0);
 
     CHECK(bfs_tree.has_edge(0, 1));
     CHECK(bfs_tree.has_edge(0, 2));
@@ -54,8 +53,7 @@ TEST_CASE("Depth-First Search (DFS)") {
     g.add_edge(2, 4, 40);
     g.add_edge(3, 5, 50);
 
-    Algorithms alg;
-    graph::Graph dfs_tree = alg.dfs(g, 0);
+    graph::Graph dfs_tree = Algorithms::dfs(g, 0);
 
     CHECK(dfs_tree.has_edge(0, 1));
     CHECK(dfs_tree.has_edge(1, 3));
@@ -74,8 +72,7 @@ TEST_CASE("Kruskal's algorithm") {
     g.add_edge(0, 2, 15);
     g.add_edge(1, 3, 25);
 
-    Algorithms alg;
-    graph::Graph mst = alg.kruskal(g);
+    graph::Graph mst = Algorithms::kruskal(g);
 
     CHECK(mst.has_edge(0, 1));
     CHECK(mst.has_edge(0, 2));
@@ -94,8 +91,7 @@ TEST_CASE("Prim's algorithm") {
     g.add_edge(0, 2, 15);
     g.add_edge(1, 3, 25);
 
-    Algorithms alg;
-    graph::Graph mst = alg.prim(g);
+    graph::Graph mst = Algorithms::prim(g);
 
     CHECK(mst.has_edge(0, 1));
     CHECK(mst.has_edge(0, 2));
