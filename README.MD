@@ -85,3 +85,4 @@ write `make valgrind` in the terminal to check if there are any leaks in memory.
 write `make clean` in the terminal to clean all the compiled files.
 
 
+The README was made with the help of chatGPT with how to make links and titles in a README file.
