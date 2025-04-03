@@ -153,6 +153,11 @@ graph::Graph Algorithms::dfs(const graph::Graph& graph, int start) {
 }
 
 
+#include "Algorithms.hpp"
+#include "Edge.hpp"
+#include "UnionFind.hpp"
+#include "Graph.hpp"
+
 graph::Graph Algorithms::kruskal(const graph::Graph& graph) {
     int num_vertices = graph.get_num_vertices();
     UnionFind uf(num_vertices);
@@ -165,7 +170,7 @@ graph::Graph Algorithms::kruskal(const graph::Graph& graph) {
         while (adj_vertices[j] != -1) {
             int v = adj_vertices[j];
             int weight = graph.get_edge_weight(i, v);
-            Edge* new_edge = new Edge(v, weight);  // Create edge with destination and weight
+            Edge* new_edge = new Edge(i, v, weight);  // Create Edge with source, destination, and weight
             new_edge->set_next(edges);  // Link new edge at the start of the list
             edges = new_edge;  // Update head of edge list
             ++j;
@@ -210,11 +215,11 @@ graph::Graph Algorithms::kruskal(const graph::Graph& graph) {
     // Add edges to the MST if they don't form a cycle
     for (int i = 0; i < num_edges; ++i) {
         Edge* edge = edge_array[i];
-        int u = edge->getDestination(); // Get the source node
+        int u = edge->getSource();   // Corrected to use getSource
         int v = edge->getDestination(); // Get the destination node
 
         if (uf.find(u) != uf.find(v)) {
-            mst.add_edge(u, v, edge->getWeight());  // Add edge to MST
+            mst.add_one_edge(u, v, edge->getWeight());  // Add edge to MST
             uf.union_sets(u, v);  // Union the sets of u and v to prevent cycle
         }
     }
@@ -232,6 +237,8 @@ graph::Graph Algorithms::kruskal(const graph::Graph& graph) {
 
     return mst;
 }
+
+
 
 
 

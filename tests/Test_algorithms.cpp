@@ -88,11 +88,16 @@ TEST_CASE("Kruskal's algorithm") {
 
     graph::Graph mst = Algorithms::kruskal(g);
 
-    CHECK(mst.has_edge(0, 1));
-    CHECK(mst.has_edge(0, 2));
-    CHECK(mst.has_edge(1, 3));
-    CHECK(mst.has_edge(2, 4));
-    CHECK(mst.has_edge(3, 5));
+    CHECK(mst.has_edge(0, 1));  // Edge from 0 to 1 (weight 10)
+    CHECK(mst.has_edge(0, 2));  // Edge from 0 to 2 (weight 15)
+    CHECK(mst.has_edge(1, 3));  // Edge from 1 to 3 (weight 25)
+    CHECK(mst.has_edge(3, 4));  // Edge from 3 to 4 (weight 40)
+    CHECK(mst.has_edge(4, 5));  // Edge from 4 to 5 (weight 50)
+
+    // Ensure that non-MST edges are not present
+    CHECK_FALSE(mst.has_edge(2, 3));  // Edge from 2 to 3 (weight 30) should not be in MST
+    CHECK_FALSE(mst.has_edge(1, 2));  // Edge from 1 to 2 (weight 20) should not be in MST
+
 }
 
 TEST_CASE("Prim's algorithm") {

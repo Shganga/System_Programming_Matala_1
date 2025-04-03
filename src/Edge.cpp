@@ -3,6 +3,13 @@
 // Constructor to initialize destination and weight
 Edge::Edge(int dest, int w) : destination(dest), weight(w), next(nullptr) {}
 
+Edge::Edge(int src, int dest, int w) : source(src), destination(dest), weight(w), next(nullptr) {}
+
+
+int Edge::getSource() const {
+    return source;
+}
+
 // Getter for destination
 int Edge::getDestination() const {
     return destination;
