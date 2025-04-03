@@ -17,6 +17,10 @@ UnionFind::~UnionFind() {
     delete[] rank;
 }
 
+int UnionFind::get_size(){
+    return size;
+}
+
 // Function to find the root of a given element with path compression.
 int UnionFind::find(int x) {
     if (parent[x] != x) {
