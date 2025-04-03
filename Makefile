@@ -1,3 +1,4 @@
+#yanivg1000@gmail.com
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -g -Wall -std=c++17 -I./src  # Include the src directory

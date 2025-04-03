@@ -2,14 +2,31 @@
 #include "Algorithms.hpp"
 #include "UnionFind.hpp"
 #include "PriorityQueue.hpp"
-#include "Stack.hpp"  // You will need to implement this as well
-#include "Graph.hpp"  // Include the Graph class
+#include "Stack.hpp"  
+#include "Graph.hpp"  
 
-namespace graph{
-    const int Algorithms::INF = 1000000000; // Define constant for infinity
+namespace graph {
 
+    const int Algorithms::INF = 1000000000;  // Define constant for infinity
+
+    /**
+     * Implements Dijkstra's algorithm to find the shortest paths from a source vertex.
+     *
+     * @param graph The graph on which Dijkstra's algorithm is applied.
+     * @param start The start vertex.
+     * @return A graph representing the shortest path tree (SPT).
+     */
     Graph Algorithms::dijkstra(const Graph& graph, int start) {
         int num_vertices = graph.get_num_vertices();
+
+        if (num_vertices == 0) {
+            throw std::invalid_argument("Graph has no vertices.");
+        }
+    
+        if (start < 0 || start >= num_vertices) {
+            throw std::out_of_range("Invalid start vertex.");
+        }
+
         int* dist = new int[num_vertices];
         bool* visited = new bool[num_vertices]{false};
         int* parent = new int[num_vertices]{-1};  // To reconstruct the shortest path tree
@@ -24,13 +41,13 @@ namespace graph{
         PriorityQueue q(num_vertices);
 
         // Enqueue the start vertex with distance 0
-        q.enqueue(start, 0);  
+        q.enqueue(start, 0);
 
         while (!q.is_empty()) {
             int u = q.dequeue();
 
             // Skip if the vertex is already visited
-            if (visited[u]) continue;  
+            if (visited[u]) continue;
             visited[u] = true;
 
             // Get the adjacent vertices array
@@ -64,15 +81,24 @@ namespace graph{
         return spt;
     }
 
-
-
-
-
-
-
-
+    /**
+     * Implements Breadth-First Search (BFS) to explore the graph from a start vertex.
+     *
+     * @param graph The graph on which BFS is applied.
+     * @param start The start vertex.
+     * @return A graph representing the BFS tree.
+     */
     Graph Algorithms::bfs(const Graph& graph, int start) {
         int num_vertices = graph.get_num_vertices();
+
+        if (num_vertices == 0) {
+            throw std::invalid_argument("Graph has no vertices.");
+        }
+    
+        if (start < 0 || start >= num_vertices) {
+            throw std::out_of_range("Invalid start vertex.");
+        }
+
         bool* visited = new bool[num_vertices]{false};
         int* parent = new int[num_vertices]{-1};  // Keep track of parent nodes for tree structure
         PriorityQueue q(num_vertices);  // Use the priority queue (although we ignore priority for BFS)
@@ -111,11 +137,24 @@ namespace graph{
         return bfs_tree;
     }
 
-
-
-
+    /**
+     * Implements Depth-First Search (DFS) to explore the graph from a start vertex.
+     *
+     * @param graph The graph on which DFS is applied.
+     * @param start The start vertex.
+     * @return A graph representing the DFS tree.
+     */
     Graph Algorithms::dfs(const Graph& graph, int start) {
         int num_vertices = graph.get_num_vertices();
+
+        if (num_vertices == 0) {
+            throw std::invalid_argument("Graph has no vertices.");
+        }
+    
+        if (start < 0 || start >= num_vertices) {
+            throw std::out_of_range("Invalid start vertex.");
+        }
+
         bool* visited = new bool[num_vertices]{false};
         int* parent = new int[num_vertices]{-1};  // Keep track of parent nodes for tree structure
         Stack s(num_vertices);  // Use a stack to implement DFS
@@ -154,9 +193,19 @@ namespace graph{
         return dfs_tree;
     }
 
-
+    /**
+     * Implements Kruskal's algorithm to find the Minimum Spanning Tree (MST) of a graph.
+     *
+     * @param graph The graph on which Kruskal's algorithm is applied.
+     * @return A graph representing the MST.
+     */
     Graph Algorithms::kruskal(const Graph& graph) {
         int num_vertices = graph.get_num_vertices();
+
+        if (num_vertices == 0) {
+            throw std::invalid_argument("Graph has no vertices.");
+        }
+
         UnionFind uf(num_vertices);
 
         // Get all edges using adjacency list
@@ -198,7 +247,6 @@ namespace graph{
         for (int i = 0; i < num_edges - 1; ++i) {
             for (int j = 0; j < num_edges - 1 - i; ++j) {
                 if (edge_array[j]->getWeight() > edge_array[j + 1]->getWeight()) {
-                    // Swap edges
                     Edge* temp = edge_array[j];
                     edge_array[j] = edge_array[j + 1];
                     edge_array[j + 1] = temp;
@@ -235,13 +283,17 @@ namespace graph{
         return mst;
     }
 
-
-
-
-
-
+    /**
+     * Implements Prim's algorithm to find the Minimum Spanning Tree (MST) of a graph.
+     *
+     * @param graph The graph on which Prim's algorithm is applied.
+     * @return A graph representing the MST.
+     */
     Graph Algorithms::prim(const Graph& graph) {
         int num_vertices = graph.get_num_vertices();
+        if (num_vertices == 0) {
+            throw std::invalid_argument("Graph has no vertices.");
+        }
         bool* in_mst = new bool[num_vertices]{false};
         int* key = new int[num_vertices];
         int* parent = new int[num_vertices];
@@ -298,6 +350,3 @@ namespace graph{
         return mst;
     }
 }
-
-
-

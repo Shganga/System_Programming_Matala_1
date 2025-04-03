@@ -1,4 +1,4 @@
-//yanivg1000@gmail.com
+// yanivg1000@gmail.com
 #include "Graph.hpp"
 #include "Edge.hpp"
 #include <stdexcept>
@@ -6,7 +6,7 @@
 
 namespace graph {
 
-    // Constructor
+    // Constructor to initialize the graph with a given number of vertices
     Graph::Graph(int vertices) : num_vertices(vertices) {
         adjacency_list = new Edge*[num_vertices];
         for (int i = 0; i < num_vertices; ++i) {
@@ -14,7 +14,7 @@ namespace graph {
         }
     }
 
-    // Destructor
+    // Destructor to clean up dynamically allocated memory
     Graph::~Graph() {
         for (int i = 0; i < num_vertices; ++i) {
             Edge* current = adjacency_list[i];
@@ -27,7 +27,7 @@ namespace graph {
         delete[] adjacency_list;  // Delete the adjacency list array
     }
 
-    // Add an edge to the graph (undirected)
+    // Add an undirected edge to the graph with the given vertices and weight
     void Graph::add_edge(int from, int to, int weight) {
         if (from < 0 || to < 0 || from >= num_vertices || to >= num_vertices) {
             throw std::out_of_range("Invalid vertex index.");
@@ -44,27 +44,29 @@ namespace graph {
         adjacency_list[to] = new_edge_to;  // Add the new edge to the adjacency list of 'to'
     }
 
-    void Graph::add_one_edge(int from, int to, int weight){
+    // Add a one-way edge to the graph with the given vertices and weight
+    void Graph::add_one_edge(int from, int to, int weight) {
         if (from < 0 || to < 0 || from >= num_vertices || to >= num_vertices) {
             throw std::out_of_range("Invalid vertex index.");
         }
 
+        // Add one-way edge from 'to' to 'from'
         Edge* new_edge_to = new Edge(from, weight);
         new_edge_to->set_next(adjacency_list[to]);
         adjacency_list[to] = new_edge_to;
     }
 
-    // Remove an edge from the graph
+    // Remove an undirected edge between the specified vertices
     void Graph::remove_edge(int from, int to) {
         if (from < 0 || to < 0 || from >= num_vertices || to >= num_vertices) {
             throw std::out_of_range("Invalid vertex index.");
         }
 
-        remove_edge_helper(from, to);
-        remove_edge_helper(to, from);  // Remove the reverse edge as well
+        remove_edge_helper(from, to);  // Remove the edge from 'from' to 'to'
+        remove_edge_helper(to, from);  // Remove the reverse edge from 'to' to 'from'
     }
 
-    // Helper function to remove an edge from the adjacency list
+    // Helper function to remove a specific edge from the adjacency list
     void Graph::remove_edge_helper(int from, int to) {
         Edge* current = adjacency_list[from];
         Edge* prev = nullptr;
@@ -84,7 +86,7 @@ namespace graph {
         }
     }
 
-    // Print the graph (for debugging)
+    // Print the graph (for debugging purposes)
     void Graph::print_graph() const {
         for (int i = 0; i < num_vertices; ++i) {
             std::cout << "Vertex " << i << ": ";
@@ -97,7 +99,7 @@ namespace graph {
         }
     }
 
-    // Check if an edge exists
+    // Check if an edge exists between two specified vertices
     bool Graph::has_edge(int from, int to) const {
         Edge* current = adjacency_list[from];
         while (current != nullptr) {
@@ -109,12 +111,12 @@ namespace graph {
         return false;
     }
 
-    // Get number of vertices
+    // Get the number of vertices in the graph
     int Graph::get_num_vertices() const {
         return num_vertices;
     }
 
-    // Get adjacent vertices of a given vertex
+    // Get the list of adjacent vertices for a given vertex
     int* Graph::get_adjacent_vertices(int vertex) const {
         Edge* current = adjacency_list[vertex];
         int* adj_array = new int[num_vertices];  // Dynamically allocate an array
@@ -130,7 +132,7 @@ namespace graph {
         return adj_array;  // Return the array of adjacent vertices
     }
 
-    // Get edge weight between two vertices
+    // Get the weight of the edge between two specified vertices
     int Graph::get_edge_weight(int from, int to) const {
         Edge* current = adjacency_list[from];
         while (current != nullptr) {
@@ -139,7 +141,7 @@ namespace graph {
             }
             current = current->get_next();
         }
-        return -1;  // Return -1 if no edge exists
+        return -1;  // Return -1 if no edge exists between the vertices
     }
 
 }

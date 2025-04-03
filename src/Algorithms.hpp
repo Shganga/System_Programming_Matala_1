@@ -7,7 +7,7 @@
 namespace graph { 
     class Algorithms {
         public:
-            static const int INF; // Define constant for infinity
+            static const int INF; 
 
             static Graph dijkstra(const Graph& graph, int start);
 

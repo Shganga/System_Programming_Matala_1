@@ -1,7 +1,7 @@
-//yanivg1000@gmail.com
+// yanivg1000@gmail.com
 #include "UnionFind.hpp"
 
-
+// Constructor to initialize the UnionFind structure with a given size.
 UnionFind::UnionFind(int size) : size(size) {
     parent = new int[size];
     rank = new int[size];
@@ -11,11 +11,13 @@ UnionFind::UnionFind(int size) : size(size) {
     }
 }
 
+// Destructor to free dynamically allocated memory.
 UnionFind::~UnionFind() {
     delete[] parent;
     delete[] rank;
 }
 
+// Function to find the root of a given element with path compression.
 int UnionFind::find(int x) {
     if (parent[x] != x) {
         parent[x] = find(parent[x]); // Path compression
@@ -23,6 +25,7 @@ int UnionFind::find(int x) {
     return parent[x];
 }
 
+// Function to union two sets by rank.
 void UnionFind::union_sets(int x, int y) {
     int rootX = find(x);
     int rootY = find(y);
