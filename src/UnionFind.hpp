@@ -10,7 +10,7 @@ public:
     
     int find(int x);
     void union_sets(int x, int y);
-    
+    int get_size();
 private:
     int* parent;
     int* rank;

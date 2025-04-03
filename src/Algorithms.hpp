@@ -4,23 +4,20 @@
 
 #include "Graph.hpp"
 
-namespace graph {  // Assuming Graph is in the graph namespace
-    class Graph;  // Forward declaration to avoid circular dependencies
+namespace graph { 
+    class Algorithms {
+        public:
+            static const int INF; 
+
+            static Graph dijkstra(const Graph& graph, int start);
+
+            static Graph bfs(const Graph& graph, int start);
+
+            static Graph dfs(const Graph& graph, int start);
+
+            static Graph kruskal(const Graph& graph);
+
+            static Graph prim(const Graph& graph);
+    };
 }
-
-class Algorithms {
-    public:
-        static const int INF; // Define constant for infinity
-
-        static graph::Graph dijkstra(const graph::Graph& graph, int start);
-
-        static graph::Graph bfs(const graph::Graph& graph, int start);
-
-        static graph::Graph dfs(const graph::Graph& graph, int start);
-
-        static graph::Graph kruskal(const graph::Graph& graph);
-
-        static graph::Graph prim(const graph::Graph& graph);
-};
-
 #endif // ALGORITHMS_HPP
