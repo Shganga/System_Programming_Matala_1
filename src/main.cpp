@@ -18,32 +18,29 @@ int main() {
     std::cout << "Graph adjacency list:" << std::endl;
     g.print_graph();
 
-    // Create an Algorithms object
-    Algorithms algo;
-
     // Run BFS algorithm from vertex 0
     std::cout << "\nRunning BFS from vertex 0:" << std::endl;
-    graph::Graph bfs_tree = algo.bfs(g, 0);
+    graph::Graph bfs_tree = graph::Algorithms::bfs(g, 0);
     bfs_tree.print_graph();  // Print BFS tree
 
     // Run DFS algorithm from vertex 0
     std::cout << "\nRunning DFS from vertex 0:" << std::endl;
-    graph::Graph dfs_tree = algo.dfs(g, 0);
+    graph::Graph dfs_tree = graph::Algorithms::dfs(g, 0);
     dfs_tree.print_graph();  // Print DFS tree
 
     // Run Dijkstra's algorithm from vertex 0
     std::cout << "\nRunning Dijkstra's algorithm from vertex 0:" << std::endl;
-    graph::Graph dijkstra_tree = Algorithms::dijkstra(g,0);
+    graph::Graph dijkstra_tree = graph::Algorithms::dijkstra(g,0);
     dijkstra_tree.print_graph();
 
     // Run Kruskal's algorithm to find the Minimum Spanning Tree (MST)
     std::cout << "\nRunning Kruskal's algorithm for MST:" << std::endl;
-    graph::Graph mst_kruskal = algo.kruskal(g);
+    graph::Graph mst_kruskal = graph::Algorithms::kruskal(g);
     mst_kruskal.print_graph();  // Print MST obtained from Kruskal's algorithm
 
     // Run Prim's algorithm to find the Minimum Spanning Tree (MST)
     std::cout << "\nRunning Prim's algorithm for MST:" << std::endl;
-    graph::Graph mst_prim = algo.prim(g);
+    graph::Graph mst_prim = graph::Algorithms::prim(g);
     mst_prim.print_graph();  // Print MST obtained from Prim's algorithm
 
     // Remove an edge and print the graph again

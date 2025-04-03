@@ -13,7 +13,7 @@ TEST_CASE("Dijkstra algorithm from vertex 0 (undirected)") {
     g.add_edge(0, 4, 100);
 
     // Directly call the static method using the class name
-    graph::Graph spt = Algorithms::dijkstra(g, 0);  // Get the shortest path tree
+    graph::Graph spt = graph::Algorithms::dijkstra(g, 0);  // Get the shortest path tree
 
     // Verify the shortest path tree (correct edges with minimum weight)
     CHECK(spt.has_edge(0, 1));  // 0 -> 1 (weight 10)
@@ -47,7 +47,7 @@ TEST_CASE("Breadth-First Search (BFS)") {
     g.add_edge(2, 4, 40);
     g.add_edge(3, 5, 50);
 
-    graph::Graph bfs_tree = Algorithms::bfs(g, 0);
+    graph::Graph bfs_tree = graph::Algorithms::bfs(g, 0);
 
     CHECK(bfs_tree.has_edge(0, 1));
     CHECK(bfs_tree.has_edge(0, 2));
@@ -64,7 +64,7 @@ TEST_CASE("Depth-First Search (DFS)") {
     g.add_edge(2, 4, 40);
     g.add_edge(3, 5, 50);
 
-    graph::Graph dfs_tree = Algorithms::dfs(g, 0);
+    graph::Graph dfs_tree = graph::Algorithms::dfs(g, 0);
 
     CHECK(dfs_tree.has_edge(0, 1));
     CHECK(dfs_tree.has_edge(1, 3));
@@ -83,7 +83,7 @@ TEST_CASE("Kruskal's algorithm") {
     g.add_edge(0, 2, 15);
     g.add_edge(1, 3, 25);
 
-    graph::Graph mst = Algorithms::kruskal(g);
+    graph::Graph mst = graph::Algorithms::kruskal(g);
 
     CHECK(mst.has_edge(0, 1));  // Edge from 0 to 1 (weight 10)
     CHECK(mst.has_edge(0, 2));  // Edge from 0 to 2 (weight 15)
@@ -107,7 +107,7 @@ TEST_CASE("Prim's algorithm") {
     g.add_edge(0, 2, 15);
     g.add_edge(1, 3, 25);
 
-    graph::Graph mst = Algorithms::prim(g);
+    graph::Graph mst = graph::Algorithms::prim(g);
 
     CHECK(mst.has_edge(0, 1));  // Direct edge in MST
     CHECK(mst.has_edge(0, 2));  // Direct edge in MST (corrected)
