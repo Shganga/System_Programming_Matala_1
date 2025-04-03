@@ -17,15 +17,29 @@ TEST_CASE("Dijkstra algorithm from vertex 0 (undirected)") {
     // Directly call the static method using the class name
     graph::Graph spt = Algorithms::dijkstra(g, 0);  // Get the shortest path tree
 
+    // Verify the shortest path tree (correct edges with minimum weight)
+    CHECK(spt.has_edge(0, 1));  // 0 -> 1 (weight 10)
+    CHECK(spt.has_edge(1, 2));  // 1 -> 2 (weight 30)
+    CHECK(spt.has_edge(2, 3));  // 2 -> 3 (weight 30)
+    CHECK(spt.has_edge(3, 4));  // 3 -> 4 (weight 10)
 
-    // Verify the expected edges in the shortest path tree (undirected graph)
-    CHECK(spt.has_edge(0, 1));  // Edge 0 <-> 1 should be present (weight 10)
-    CHECK(spt.has_edge(1, 2));  // Edge 1 <-> 2 should be present (weight 30)
-    CHECK(spt.has_edge(2, 3));  // Edge 2 <-> 3 should be present (weight 60)
+    // Verify the correct shortest path weights
+    CHECK(spt.get_edge_weight(0, 1) == 10);  // Weight from 0 to 1
+    CHECK(spt.get_edge_weight(1, 2) == 30);  // Weight from 1 to 2
+    CHECK(spt.get_edge_weight(2, 3) == 30);  // Weight from 2 to 3
+    CHECK(spt.get_edge_weight(3, 4) == 10);  // Weight from 3 to 4
 
-    // Verify that edges not in the shortest path tree do not exist
-    CHECK_FALSE(spt.has_edge(0, 4));  // Edge 0 <-> 4 should not be present
+    // Verify that the shortest path from 0 to 4 is through 0 -> 1 -> 2 -> 3 -> 4
+    CHECK(spt.has_edge(0, 1));
+    CHECK(spt.has_edge(1, 2));
+    CHECK(spt.has_edge(2, 3));
+    CHECK(spt.has_edge(3, 4));
+
+    // Verify that an unnecessary edge (0 -> 4) does not exist in the shortest path tree
+    CHECK_FALSE(spt.has_edge(0, 4));  // Edge 0 -> 4 should not be present, it's not part of the shortest path
+
 }
+
 
 
 TEST_CASE("Breadth-First Search (BFS)") {

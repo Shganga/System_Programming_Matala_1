@@ -13,6 +13,7 @@ namespace graph {
         ~Graph();
 
         void add_edge(int from, int to, int weight);
+        void add_one_edge(int from,int to, int weight);
         void remove_edge(int from, int to);
 
         void print_graph() const;  // Debugging function

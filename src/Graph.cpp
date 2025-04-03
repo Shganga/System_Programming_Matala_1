@@ -43,6 +43,16 @@ namespace graph {
         adjacency_list[to] = new_edge_to;  // Add the new edge to the adjacency list of 'to'
     }
 
+    void Graph::add_one_edge(int from, int to, int weight){
+        if (from < 0 || to < 0 || from >= num_vertices || to >= num_vertices) {
+            throw std::out_of_range("Invalid vertex index.");
+        }
+
+        Edge* new_edge_to = new Edge(from, weight);
+        new_edge_to->set_next(adjacency_list[to]);
+        adjacency_list[to] = new_edge_to;
+    }
+
     // Remove an edge from the graph
     void Graph::remove_edge(int from, int to) {
         if (from < 0 || to < 0 || from >= num_vertices || to >= num_vertices) {

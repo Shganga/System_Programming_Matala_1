@@ -51,7 +51,7 @@ graph::Graph Algorithms::dijkstra(const graph::Graph& graph, int start) {
     graph::Graph spt(num_vertices);
     for (int i = 0; i < num_vertices; ++i) {
         if (parent[i] != -1) {
-            spt.add_edge(i, parent[i], dist[i]);  // Add edge to the SPT
+            spt.add_one_edge(i, parent[i], dist[i] - dist[i - 1]);  // Add edge to the SPT
         }
     }
 
