@@ -107,9 +107,12 @@ TEST_CASE("Prim's algorithm") {
 
     graph::Graph mst = Algorithms::prim(g);
 
-    CHECK(mst.has_edge(0, 1));
-    CHECK(mst.has_edge(0, 2));
-    CHECK(mst.has_edge(1, 3));
-    CHECK(mst.has_edge(2, 4));
-    CHECK(mst.has_edge(3, 5));
+    CHECK(mst.has_edge(0, 1));  // Direct edge in MST
+    CHECK(mst.has_edge(0, 2));  // Direct edge in MST (corrected)
+    CHECK(mst.has_edge(1, 3));  // Direct edge in MST
+    CHECK(mst.has_edge(3, 4));  // Direct edge in MST
+    CHECK(mst.has_edge(4, 5));  // Direct edge in MST
+
+    CHECK_FALSE(mst.has_edge(1, 2));  // This edge should not exist
 }
+

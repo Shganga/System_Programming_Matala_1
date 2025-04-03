@@ -86,3 +86,39 @@ int Queue::dequeue() {
 bool Queue::is_empty() const {
     return rear == -1;  // The queue is empty if rear is -1
 }
+
+void Queue::decrease_key(int value, int new_priority) {
+    // Find the index of the element with the given value
+    int index = -1;
+    for (int i = 0; i <= rear; ++i) {
+        if (arr[i].value == value) {
+            index = i;
+            break;
+        }
+    }
+
+    // If the element is not found, return
+    if (index == -1) {
+        throw std::invalid_argument("Value not found in the priority queue");
+    }
+
+    // If the new priority is not smaller, ignore the request
+    if (new_priority >= arr[index].priority) {
+        throw std::invalid_argument("New priority must be lower than current priority");
+    }
+
+    // Update the priority and maintain heap property
+    arr[index].priority = new_priority;
+    heapify_up(index);
+}
+
+bool Queue::contains(int value) const {
+    for (int i = 0; i <= rear; ++i) {
+        if (arr[i].value == value) {
+            return true;
+        }
+    }
+    return false;
+}
+
+

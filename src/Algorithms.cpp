@@ -99,7 +99,7 @@ graph::Graph Algorithms::bfs(const graph::Graph& graph, int start) {
     graph::Graph bfs_tree(num_vertices);
     for (int i = 0; i < num_vertices; ++i) {
         if (parent[i] != -1) {
-            bfs_tree.add_edge(i, parent[i], 1);  // Add edge from parent to current node
+            bfs_tree.add_one_edge(i, parent[i], 1);  // Add edge from parent to current node
         }
     }
 
@@ -142,7 +142,7 @@ graph::Graph Algorithms::dfs(const graph::Graph& graph, int start) {
     graph::Graph dfs_tree(num_vertices);
     for (int i = 0; i < num_vertices; ++i) {
         if (parent[i] != -1) {
-            dfs_tree.add_edge(i, parent[i], 1);  // Add edge from parent to current node
+            dfs_tree.add_one_edge(i, parent[i], 1);  // Add edge from parent to current node
         }
     }
 
@@ -241,7 +241,7 @@ graph::Graph Algorithms::prim(const graph::Graph& graph) {
     bool* in_mst = new bool[num_vertices]{false};
     int* key = new int[num_vertices];
     int* parent = new int[num_vertices];
-    Queue pq(num_vertices);  // Using the PriorityQueue now
+    Queue pq(num_vertices);  // Min-heap priority queue
 
     // Initialize keys to infinity
     for (int i = 0; i < num_vertices; ++i) {
@@ -256,28 +256,34 @@ graph::Graph Algorithms::prim(const graph::Graph& graph) {
         int u = pq.dequeue();  // Get the vertex with the minimum key value
         in_mst[u] = true;
 
-        // Get the adjacent vertices array
+        // Get adjacent vertices
         int* adj_vertices = graph.get_adjacent_vertices(u);
-        int i = 0;
-        while (adj_vertices[i] != -1) {
+        for (int i = 0; adj_vertices[i] != -1; ++i) {
             int v = adj_vertices[i];
             int weight = graph.get_edge_weight(u, v);
-            // If vertex v is not in MST and weight is less than current key value
+
+            // If v is not in MST and weight is smaller than key[v]
             if (!in_mst[v] && weight < key[v]) {
                 key[v] = weight;
                 parent[v] = u;
-                pq.enqueue(v, key[v]);  // Enqueue v with updated priority (key)
+
+                // Use decrease_key instead of enqueueing duplicates
+                if (pq.contains(v)) {
+                    pq.decrease_key(v, key[v]);
+                } else {
+                    pq.enqueue(v, key[v]);
+                }
             }
-            ++i;
         }
-        delete[] adj_vertices; // Free memory
+        delete[] adj_vertices; // Free memory if necessary
     }
 
-    // Create the minimum spanning tree (MST)
+    // Create the MST
     graph::Graph mst(num_vertices);
     for (int i = 1; i < num_vertices; ++i) {
         if (parent[i] != -1) {
-            mst.add_edge(i, parent[i], key[i]);
+            int edge_weight = graph.get_edge_weight(i, parent[i]);
+            mst.add_edge(i, parent[i], edge_weight);
         }
     }
 
@@ -287,5 +293,6 @@ graph::Graph Algorithms::prim(const graph::Graph& graph) {
 
     return mst;
 }
+
 
 
