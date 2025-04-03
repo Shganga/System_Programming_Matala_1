@@ -1,10 +1,11 @@
-#ifndef QUEUE_HPP
-#define QUEUE_HPP
+//yanivg1000@gmail.com
+#ifndef PRIORITYQUEUE_HPP
+#define PRIORITYQUEUE_HPP
 
-class Queue {
+class PriorityQueue {
 public:
-    Queue(int size);
-    ~Queue();
+    PriorityQueue(int size);
+    ~PriorityQueue();
     
     void enqueue(int value, int priority);  // Add value with priority to the queue
     int dequeue();  // Remove and return the element with the highest priority

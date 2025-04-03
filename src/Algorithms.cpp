@@ -1,6 +1,7 @@
+//yanivg1000@gmail.com
 #include "Algorithms.hpp"
 #include "UnionFind.hpp"
-#include "Queue.hpp"
+#include "PriorityQueue.hpp"
 #include "Stack.hpp"  // You will need to implement this as well
 #include "Graph.hpp"  // Include the Graph class
 
@@ -19,7 +20,7 @@ graph::Graph Algorithms::dijkstra(const graph::Graph& graph, int start) {
     dist[start] = 0;  // Start vertex has distance 0
 
     // Use a priority queue to implement the priority selection of the next node
-    Queue q(num_vertices);
+    PriorityQueue q(num_vertices);
 
     // Enqueue the start vertex with distance 0
     q.enqueue(start, 0);  
@@ -73,7 +74,7 @@ graph::Graph Algorithms::bfs(const graph::Graph& graph, int start) {
     int num_vertices = graph.get_num_vertices();
     bool* visited = new bool[num_vertices]{false};
     int* parent = new int[num_vertices]{-1};  // Keep track of parent nodes for tree structure
-    Queue q(num_vertices);  // Use the priority queue (although we ignore priority for BFS)
+    PriorityQueue q(num_vertices);  // Use the priority queue (although we ignore priority for BFS)
     q.enqueue(start, 0);  // Enqueue the start vertex with priority 0
     visited[start] = true;
 
@@ -152,11 +153,6 @@ graph::Graph Algorithms::dfs(const graph::Graph& graph, int start) {
     return dfs_tree;
 }
 
-
-#include "Algorithms.hpp"
-#include "Edge.hpp"
-#include "UnionFind.hpp"
-#include "Graph.hpp"
 
 graph::Graph Algorithms::kruskal(const graph::Graph& graph) {
     int num_vertices = graph.get_num_vertices();
@@ -248,7 +244,7 @@ graph::Graph Algorithms::prim(const graph::Graph& graph) {
     bool* in_mst = new bool[num_vertices]{false};
     int* key = new int[num_vertices];
     int* parent = new int[num_vertices];
-    Queue pq(num_vertices);  // Min-heap priority queue
+    PriorityQueue pq(num_vertices);  // Min-heap priority queue
 
     // Initialize keys to infinity
     for (int i = 0; i < num_vertices; ++i) {

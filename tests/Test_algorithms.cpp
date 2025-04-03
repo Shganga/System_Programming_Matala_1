@@ -1,10 +1,8 @@
+//yanivg1000@gmail.com
+
 #include "doctest.h"
 #include "Graph.hpp"
-#include "Edge.hpp"
 #include "Algorithms.hpp"
-#include "UnionFind.hpp"
-#include "Queue.hpp"
-#include "Stack.hpp"
 
 TEST_CASE("Dijkstra algorithm from vertex 0 (undirected)") {
     graph::Graph g(5);
@@ -37,7 +35,6 @@ TEST_CASE("Dijkstra algorithm from vertex 0 (undirected)") {
 
     // Verify that an unnecessary edge (0 -> 4) does not exist in the shortest path tree
     CHECK_FALSE(spt.has_edge(0, 4));  // Edge 0 -> 4 should not be present, it's not part of the shortest path
-
 }
 
 

@@ -1,14 +1,15 @@
-#include "Queue.hpp"
+//yanivg1000@gmail.com
+#include "PriorityQueue.hpp"
 #include <stdexcept>  // For overflow and underflow exceptions
 
-Queue::Queue(int size) : arr(new Element[size]), front(-1), rear(-1), capacity(size) {}
+PriorityQueue::PriorityQueue(int size) : arr(new Element[size]), front(-1), rear(-1), capacity(size) {}
 
-Queue::~Queue() {
+PriorityQueue::~PriorityQueue() {
     delete[] arr;
 }
 
 // Helper function to maintain the heap property when adding an element
-void Queue::heapify_up(int index) {
+void PriorityQueue::heapify_up(int index) {
     while (index > 0 && arr[index].priority < arr[(index - 1) / 2].priority) {
         // Swap the elements
         Element temp = arr[index];
@@ -19,7 +20,7 @@ void Queue::heapify_up(int index) {
 }
 
 // Helper function to maintain the heap property when removing an element
-void Queue::heapify_down(int index) {
+void PriorityQueue::heapify_down(int index) {
     int left_child = 2 * index + 1;
     int right_child = 2 * index + 2;
     int smallest = index;
@@ -41,7 +42,7 @@ void Queue::heapify_down(int index) {
     }
 }
 
-void Queue::enqueue(int value, int priority) {
+void PriorityQueue::enqueue(int value, int priority) {
     if (rear == capacity - 1) {
         throw std::overflow_error("Queue is full");
     }
@@ -59,7 +60,7 @@ void Queue::enqueue(int value, int priority) {
     heapify_up(rear);
 }
 
-int Queue::dequeue() {
+int PriorityQueue::dequeue() {
     if (rear == -1) {  // The queue is empty
         throw std::underflow_error("Queue is empty");
     }
@@ -83,11 +84,11 @@ int Queue::dequeue() {
     return highest_priority_value;
 }
 
-bool Queue::is_empty() const {
+bool PriorityQueue::is_empty() const {
     return rear == -1;  // The queue is empty if rear is -1
 }
 
-void Queue::decrease_key(int value, int new_priority) {
+void PriorityQueue::decrease_key(int value, int new_priority) {
     // Find the index of the element with the given value
     int index = -1;
     for (int i = 0; i <= rear; ++i) {
@@ -112,7 +113,7 @@ void Queue::decrease_key(int value, int new_priority) {
     heapify_up(index);
 }
 
-bool Queue::contains(int value) const {
+bool PriorityQueue::contains(int value) const {
     for (int i = 0; i <= rear; ++i) {
         if (arr[i].value == value) {
             return true;
