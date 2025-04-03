@@ -1,3 +1,4 @@
+//yanivg1000@gmail.com
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 
@@ -6,22 +7,27 @@
 #include <stdexcept>
 
 namespace graph {
+
     class Graph {
     public:
         Graph(int vertices);
         ~Graph();
 
         void add_edge(int from, int to, int weight);
+        void add_one_edge(int from,int to, int weight);
         void remove_edge(int from, int to);
 
-        void print_graph() const;  // This remains for debugging, though not used in tests
-        bool has_edge(int from, int to) const; // Helper function to check existence of an edge
+        void print_graph() const;  // Debugging function
+        bool has_edge(int from, int to) const; // Check if the edge exists
+        int get_num_vertices() const;
+        int* get_adjacent_vertices(int vertex) const;  // Returns an array of adjacent vertices
+        int get_edge_weight(int from, int to) const;
 
     private:
         void remove_edge_helper(int from, int to);
 
         int num_vertices;
-        Edge** adjacency_list;
+        Edge** adjacency_list;  // Pointer to an array of Edge pointers (adjacency list)
     };
 }
 
