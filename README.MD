@@ -4,22 +4,6 @@
 
 This project implements several classic graph algorithms in C++, including Dijkstra's, BFS, DFS, Kruskal's, and Prim's algorithms. These algorithms are applied on a custom graph implementation, and helper data structures like Union-Find, Priority Queue, and Stack are also included.
 
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Algorithms](#algorithms)
-   - [Dijkstra's Algorithm](#dijkstras-algorithm)
-   - [Breadth-First Search (BFS)](#breadth-first-search-bfs)
-   - [Depth-First Search (DFS)](#depth-first-search-dfs)
-   - [Kruskal's Algorithm](#kruskals-algorithm)
-   - [Prim's Algorithm](#prims-algorithm)
-3. [Data Structures](#data-structures)
-   - [UnionFind](#unionfind)
-   - [PriorityQueue](#priorityqueue)
-   - [Stack](#stack)
-4. [Compiling & Running](#compiling--running)
-5. [Testing](#testing)
-
 ## Overview
 
 This project provides an implementation of various graph algorithms to manipulate and analyze graphs. Each algorithm aims to either find the shortest path, explore the graph, or find the minimum spanning tree (MST) of a given graph. The algorithms work with a custom graph structure that supports vertices, edges, and adjacency lists.
@@ -82,6 +66,3 @@ write `make test` in the terminal to compile all the tests and files needed to r
 write `make valgrind` in the terminal to check if there are any leaks in memory.
 
 write `make clean` in the terminal to clean all the compiled files.
-
-
-The README was made with the help of chatGPT with how to make links and titles in a README file.
