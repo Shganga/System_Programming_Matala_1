@@ -19,7 +19,6 @@ This project implements several classic graph algorithms in C++, including Dijks
    - [Stack](#stack)
 4. [Compiling & Running](#compiling--running)
 5. [Testing](#testing)
-6. [License](#license)
 
 ## Overview
 

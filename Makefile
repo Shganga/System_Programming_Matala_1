@@ -12,7 +12,7 @@ SRC = $(SRC_DIR)/Graph.cpp $(SRC_DIR)/Edge.cpp $(SRC_DIR)/Node.cpp $(SRC_DIR)/Al
 OBJ = $(SRC:.cpp=.o)  # Object files for source code
 
 # Test files (from the tests folder)
-TEST_SRC = $(TEST_DIR)/Test_graph.cpp $(TEST_DIR)/Test_edge.cpp $(TEST_DIR)/Test_algorithms.cpp
+TEST_SRC = $(TEST_DIR)/Test_graph.cpp $(TEST_DIR)/Test_edge.cpp $(TEST_DIR)/Test_algorithms.cpp $(TEST_DIR)/Test_datastructures.cpp
 TEST_OBJ = $(TEST_SRC:.cpp=.o)  # Object files for tests
 
 # Executable names

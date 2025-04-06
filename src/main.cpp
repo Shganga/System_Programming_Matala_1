@@ -14,23 +14,30 @@ int main() {
     g.add_edge(2, 4, 25);  // Add edge from vertex 2 to vertex 4 with weight 25
     g.add_edge(3, 4, 30);  // Add edge from vertex 3 to vertex 4 with weight 30
 
+    int starting_vertex = -1;
+    while (starting_vertex < 0 || starting_vertex > 4)
+    {
+        std::cout << "choose starting vertex from 0-4" << std::endl;
+        std::cin >> starting_vertex;
+    }
+
     // Print the graph to show the adjacency list
     std::cout << "Graph adjacency list:" << std::endl;
     g.print_graph();
 
     // Run BFS algorithm from vertex 0
     std::cout << "\nRunning BFS from vertex 0:" << std::endl;
-    graph::Graph bfs_tree = graph::Algorithms::bfs(g, 0);
+    graph::Graph bfs_tree = graph::Algorithms::bfs(g, starting_vertex);
     bfs_tree.print_graph();  // Print BFS tree
 
     // Run DFS algorithm from vertex 0
     std::cout << "\nRunning DFS from vertex 0:" << std::endl;
-    graph::Graph dfs_tree = graph::Algorithms::dfs(g, 0);
+    graph::Graph dfs_tree = graph::Algorithms::dfs(g, starting_vertex);
     dfs_tree.print_graph();  // Print DFS tree
 
     // Run Dijkstra's algorithm from vertex 0
     std::cout << "\nRunning Dijkstra's algorithm from vertex 0:" << std::endl;
-    graph::Graph dijkstra_tree = graph::Algorithms::dijkstra(g,0);
+    graph::Graph dijkstra_tree = graph::Algorithms::dijkstra(g,starting_vertex);
     dijkstra_tree.print_graph();
 
     // Run Kruskal's algorithm to find the Minimum Spanning Tree (MST)
